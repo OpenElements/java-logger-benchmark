@@ -20,6 +20,7 @@
     <module>jul-logger</module>
     <module>chronicle-logger</module>
     <module>log4j2-logger</module>
+    <module>slf4j-simple-logger</module>
     <module>jmh-benchmarks</module>
   </modules>
 

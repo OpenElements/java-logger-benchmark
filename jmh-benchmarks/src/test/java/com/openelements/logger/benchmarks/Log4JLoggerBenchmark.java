@@ -1,11 +1,12 @@
 package com.openelements.logger.benchmarks;
 
-import static com.openelements.logger.benchmarks.BenchmarkConstants.MEASUREMENT_ITERATIONS;
-import static com.openelements.logger.benchmarks.BenchmarkConstants.MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION;
-import static com.openelements.logger.benchmarks.BenchmarkConstants.PARALLEL_THREAD_COUNT;
-import static com.openelements.logger.benchmarks.BenchmarkConstants.WARMUP_ITERATIONS;
-import static com.openelements.logger.benchmarks.BenchmarkConstants.WARMUP_TIME_IN_SECONDS_PER_ITERATION;
+import static com.openelements.logger.api.BenchmarkConstants.MEASUREMENT_ITERATIONS;
+import static com.openelements.logger.api.BenchmarkConstants.MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION;
+import static com.openelements.logger.api.BenchmarkConstants.PARALLEL_THREAD_COUNT;
+import static com.openelements.logger.api.BenchmarkConstants.WARMUP_ITERATIONS;
+import static com.openelements.logger.api.BenchmarkConstants.WARMUP_TIME_IN_SECONDS_PER_ITERATION;
 
+import com.openelements.logger.api.LogLikeHell;
 import com.openelements.logger.api.Logger;
 import com.openelements.logger.log4j.Log4JLogger;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package com.openelements.logger.benchmarks;
+package com.openelements.logger.slf4j;
 
 import static com.openelements.logger.api.BenchmarkConstants.MEASUREMENT_ITERATIONS;
 import static com.openelements.logger.api.BenchmarkConstants.MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION;
@@ -8,10 +8,8 @@ import static com.openelements.logger.api.BenchmarkConstants.WARMUP_TIME_IN_SECO
 
 import com.openelements.logger.api.LogLikeHell;
 import com.openelements.logger.api.Logger;
-import com.openelements.logger.chronicle.ChronicleLogger;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -26,19 +24,15 @@ import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 
 @State(Scope.Benchmark)
-public class ChronicleLoggerBenchmark {
+public class Slf4JSimpleBenchmark {
 
-    @Param({"FILE_ASYNC"})
+
+    @Param({"FILE"})
     public String loggingType;
 
     @Setup(Level.Iteration)
     public void init() throws Exception {
-        if (Files.exists(Path.of("target/chronicle-logging"))) {
-            Files.walk(Path.of("target/chronicle-logging"))
-                    .sorted(Comparator.reverseOrder())
-                    .map(Path::toFile)
-                    .forEach(f -> f.delete());
-        }
+        Files.deleteIfExists(Path.of("target/slf4j-simple.log"));
     }
 
     @Benchmark
@@ -48,8 +42,7 @@ public class ChronicleLoggerBenchmark {
     @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
     @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
     public void run() {
-        Logger logger = new ChronicleLogger(ChronicleLoggerBenchmark.class);
+        Logger logger = new Slf4jLogger(Slf4JSimpleBenchmark.class);
         new LogLikeHell(logger).run();
     }
-
 }

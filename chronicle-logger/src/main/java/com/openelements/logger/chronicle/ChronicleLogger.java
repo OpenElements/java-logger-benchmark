@@ -3,7 +3,6 @@ package com.openelements.logger.chronicle;
 import com.openelements.logger.api.Logger;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.IntStream;
 import net.openhft.chronicle.logger.ChronicleLogLevel;
 import net.openhft.chronicle.logger.ChronicleLogManager;
 import net.openhft.chronicle.logger.ChronicleLogWriter;
@@ -70,13 +69,5 @@ public class ChronicleLogger implements Logger {
             metadata.put("marker", marker);
         }
         return this;
-    }
-
-    @Override
-    public String createMessageWithPlaceholders(int placeholderCount) {
-        return IntStream.range(0, placeholderCount)
-                .mapToObj(i -> "{},")
-                .reduce((a, b) -> a + " " + b)
-                .orElse("");
     }
 }

@@ -1,8 +1,6 @@
 package com.openelements.logger.log4j;
 
 import com.openelements.logger.api.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
@@ -78,12 +76,5 @@ public class Log4JLogger implements com.openelements.logger.api.Logger {
             currentMarker = MarkerManager.getMarker(marker);
         }
         return this;
-    }
-
-    @Override
-    public String createMessageWithPlaceholders(int placeholderCount) {
-        return IntStream.range(0, placeholderCount)
-                .mapToObj(i -> "{},")
-                .collect(Collectors.joining(" "));
     }
 }

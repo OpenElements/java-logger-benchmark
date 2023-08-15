@@ -4,7 +4,6 @@ import com.openelements.logger.api.Logger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.stream.IntStream;
 import org.slf4j.helpers.MessageFormatter;
 
 public class JulLogger implements com.openelements.logger.api.Logger {
@@ -48,14 +47,6 @@ public class JulLogger implements com.openelements.logger.api.Logger {
         logger.log(Level.INFO, addAllAdditionalInfos(MessageFormatter.arrayFormat(message, args).getMessage()),
                 throwable);
         metadata.clear();
-    }
-
-    @Override
-    public String createMessageWithPlaceholders(int placeholderCount) {
-        return IntStream.range(0, placeholderCount)
-                .mapToObj(i -> "{},")
-                .reduce((a, b) -> a + " " + b)
-                .orElse("");
     }
 
     @Override

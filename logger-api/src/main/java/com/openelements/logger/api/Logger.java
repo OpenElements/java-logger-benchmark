@@ -14,6 +14,4 @@ public interface Logger {
 
     Logger withMarker(String marker);
 
-    String createMessageWithPlaceholders(int placeholderCount);
-
 }
