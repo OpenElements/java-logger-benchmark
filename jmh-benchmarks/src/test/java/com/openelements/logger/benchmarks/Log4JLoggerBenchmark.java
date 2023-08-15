@@ -38,7 +38,7 @@ public class Log4JLoggerBenchmark {
     @Param({"FILE", "CONSOLE", "FILE_AND_CONSOLE"})
     public String loggingType;
 
-    @Setup
+    @Setup(org.openjdk.jmh.annotations.Level.Iteration)
     public void init() throws Exception {
         Files.deleteIfExists(Path.of("target/log4j-benchmark.log"));
         if (Objects.equals(loggingType, "FILE")) {

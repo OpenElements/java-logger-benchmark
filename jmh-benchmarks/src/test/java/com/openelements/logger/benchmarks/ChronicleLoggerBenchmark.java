@@ -13,6 +13,7 @@ import java.util.Comparator;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Param;
@@ -27,7 +28,7 @@ public class ChronicleLoggerBenchmark {
     @Param({"FILE"})
     public String loggingType;
 
-    @Setup
+    @Setup(Level.Iteration)
     public void init() throws Exception {
         if (Files.exists(Path.of("target/chronicle-logging"))) {
             Files.walk(Path.of("target/chronicle-logging"))

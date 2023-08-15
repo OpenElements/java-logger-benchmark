@@ -16,6 +16,7 @@ import java.util.logging.LogManager;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Param;
@@ -30,7 +31,7 @@ public class JulLoggerBenchmark {
     @Param({"FILE", "CONSOLE", "FILE_AND_CONSOLE"})
     public String loggingType;
 
-    @Setup
+    @Setup(Level.Iteration)
     public void init() throws Exception {
         Files.deleteIfExists(Path.of("target/jul-benchmark.log"));
         if (Objects.equals(loggingType, "FILE")) {
