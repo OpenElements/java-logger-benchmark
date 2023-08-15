@@ -2,6 +2,7 @@ package com.openelements.logger.benchmarks;
 
 import static com.openelements.logger.benchmarks.BenchmarkConstants.MEASUREMENT_ITERATIONS;
 import static com.openelements.logger.benchmarks.BenchmarkConstants.MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION;
+import static com.openelements.logger.benchmarks.BenchmarkConstants.PARALLEL_THREAD_COUNT;
 import static com.openelements.logger.benchmarks.BenchmarkConstants.WARMUP_ITERATIONS;
 import static com.openelements.logger.benchmarks.BenchmarkConstants.WARMUP_TIME_IN_SECONDS_PER_ITERATION;
 
@@ -23,6 +24,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 
 @State(Scope.Benchmark)
@@ -45,6 +47,7 @@ public class JulLoggerBenchmark {
 
     @Benchmark
     @Fork(1)
+    @Threads(PARALLEL_THREAD_COUNT)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
     @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
