@@ -37,7 +37,7 @@ execute that code to generate comparable results.
 I still need to run the code in a long running benchmark. The metric "Operations per second" defines how often `LogLikeHell` has been executed per second. For a short running benchmark the values look like that (
 sorted from fastest to slowest).
 
-### Execution on M1 Max MacBook with 64 GB RAM
+### Execution on M1 Max MacBook with 64 GB RAM and local SSD
 
 The benchmark has been executed on 4 threads in parallel:
 
@@ -53,7 +53,7 @@ The benchmark has been executed on 4 threads in parallel:
 | Java Util Logging | CONSOLE                |                  3430 |
 | Java Util Logging | FILE_AND_CONSOLE       |                  2712 |
 
-### Execution on Linux box with 40 vCPUs and 250 GB RAM
+### Execution on Linux box with 40 vCPUs, 250 GB RAM, and local SSD
 
 The benchmark has been executed on 4 threads in parallel:
 
