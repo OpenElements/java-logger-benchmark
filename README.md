@@ -49,7 +49,7 @@ execute that code to generate comparable results.
 ## What are the results?
 
 I still need to run the code in a long running benchmark. The metric "Operations per second" defines how often `LogLikeHell` has been executed per second. For a short running benchmark the values look like that (
-sorted from fastest to slowest).
+sorted from fastest to slowest). All bechmarks have been executed on release `v0.1.0`.
 
 ### Execution on M1 Max MacBook with 64 GB RAM and local SSD
 
