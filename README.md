@@ -1,7 +1,8 @@
 # Java Logger Benchmark
 
-This project is a benchmark for several Java logging libraries. It is using [JMH](https://github.com/openjdk/jmh) to measure the performance of the
-different logging libraries. The goal of the project is to help people that work on performance critical projects to choose the best logger and setup.
+This project is a benchmark for several Java logging libraries.
+It is using [JMH](https://github.com/openjdk/jmh) to measure the performance of the different logging libraries.
+The goal of the project is to help people that work on performance critical projects to choose the best logger and setup.
 
 ## What libraries are tested?
 
@@ -24,12 +25,12 @@ command:
 ./mvnw clean test
 ```
 
-The JMH benchmark is executed by several parameters that are all defined in the
-`com.openelements.logger.api.BenchmarkConstants` class in the `logger-api` module.
+The JMH benchmark is executed by several parameters that are all defined in the `com.openelements.logger.api.BenchmarkConstants` class in the `logger-api` module.
 
 ## What is tested
 
-Since not all loggers provide the same set of functionalities the `com.openelements.logger.api.Logger` interface contains all features that should be tested. That feature set reflects the features that a modern logging api should provide:
+Since not all loggers provide the same set of functionalities the `com.openelements.logger.api.Logger` interface contains all features that should be tested.
+That feature set reflects the features that a modern logging api should provide:
 
 - log messages
 - add stack trace (by Throwable)
@@ -44,14 +45,16 @@ Since some loggers does not provide some of the features a simple implementation
 ## How to add a new logging library?
 
 To add a new logging library, you need to create a new module that contains the implementation of the logging library.
-The `logger-api` module contains a simple interface that needs to be implemented by the logging library. By doing so a
-benchmark for the new logging library can be created that executes the `LogLikeHell` Runnable. All logging libraries
-execute that code to generate comparable results.
+The `logger-api` module contains a simple interface that needs to be implemented by the logging library.
+By doing so a benchmark for the new logging library can be created that executes the `LogLikeHell` Runnable.
+All logging libraries execute that code to generate comparable results.
 
 ## What are the results?
 
-I still need to run the code in a long running benchmark. The metric "Operations per second" defines how often `LogLikeHell` has been executed per second. For a short running benchmark the values look like that (
-sorted from fastest to slowest). All bechmarks have been executed on release `v0.1.0`by using the [Temurin JDK](https://adoptium.net) version 17.
+I still need to run the code in a long running benchmark.
+The metric "Operations per second" defines how often `LogLikeHell` has been executed per second.
+For a short running benchmark the values look like that (sorted from fastest to slowest).
+All bechmarks have been executed on release `v0.1.0` by using the [Temurin JDK](https://adoptium.net) version 17.
 
 ### Execution on M1 Max MacBook with 64 GB RAM and local SSD
 
@@ -118,7 +121,7 @@ The benchmark has been executed on 240 threads in parallel:
 
 ### CPU usage
 
-The Chronicle Logger consumes 100% CPU (all 40 vCPUs are busy, synchronization is done with [CAS](https://en.wikipedia.org/wiki/Compare-and-swap)) while Log4JLoggerBenchmark only consumes 15% CPU
+The Chronicle Logger consumes 100% CPU (all 40 vCPUs are busy, synchronization is done with [CAS](https://en.wikipedia.org/wiki/Compare-and-swap)) while Log4JLoggerBenchmark only consumes 15% CPU.
 
 ### Heap allocation
 
