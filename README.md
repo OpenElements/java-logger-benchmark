@@ -116,7 +116,7 @@ The benchmark has been executed on 240 threads in parallel:
 
 ### CPU usage
 
-The Chronicle Logger consumes 100% CPU (all 40 vCPUs are busy, synchronization is done with CAS) while Log4JLoggerBenchmark only consumes 15% CPU
+The Chronicle Logger consumes 100% CPU (all 40 vCPUs are busy, synchronization is done with [CAS](https://en.wikipedia.org/wiki/Compare-and-swap)) while Log4JLoggerBenchmark only consumes 15% CPU
 
 ### Heap allocation
 
