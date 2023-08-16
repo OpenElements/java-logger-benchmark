@@ -34,19 +34,76 @@ execute that code to generate comparable results.
 
 ## What are the results?
 
-I still need to run the code in a long running benchmark. For a short running benchmark the values look like that (
-sorted from fastest to slowest):
+I still need to run the code in a long running benchmark. The metric "Operations per second" defines how often `LogLikeHell` has been executed per second. For a short running benchmark the values look like that (
+sorted from fastest to slowest).
+
+### Execution on M1 Max MacBook with 64 GB RAM
+
+The benchmark has been executed on 4 threads in parallel:
 
 | Logger            | Logging Appender       | Operations per second |
 |-------------------|------------------------|----------------------:|
-| Log4J2            | FILE_ASYNC             |             26443,286 |
-| Chronicle Logger  | FILE_ASYNC             |             23435,042 |
-| Log4J2            | FILE                   |             13262,229 |
-| Java Util Logging | FILE                   |              5793,153 |
-| Log4J2            | FILE_ASYNC_AND_CONSOLE |              3853,433 |
-| Log4J2            | FILE_AND_CONSOLE       |              3686,111 |
-| Log4J2            | CONSOLE                |              3720,956 |
-| Java Util Logging | CONSOLE                |              3430,061 |
-| Java Util Logging | FILE_AND_CONSOLE       |              2712,309 |
+| Log4J2            | FILE_ASYNC             |                 26443 |
+| Chronicle Logger  | FILE_ASYNC             |                 23435 |
+| Log4J2            | FILE                   |                 13262 |
+| Java Util Logging | FILE                   |                  5793 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3853 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3686 |
+| Log4J2            | CONSOLE                |                  3720 |
+| Java Util Logging | CONSOLE                |                  3430 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  2712 |
 
+### Execution on Linux box with 40 vCPUs and 250 GB RAM
 
+The benchmark has been executed on 4 threads in parallel:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Log4J2            | FILE_ASYNC             |                 16379 |
+| Log4J2            | FILE                   |                 12527 |
+| Chronicle Logger  | FILE_ASYNC             |                  9711 |
+| SLF4J Simple      | FILE                   |                  4195 |
+| Log4J2            | CONSOLE                |                  3383 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3273 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3199 |
+| Java Util Logging | FILE                   |                  2834 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  1987 |
+| Java Util Logging | CONSOLE                |                  1722 |
+
+The benchmark has been executed on 40 threads in parallel:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Log4J2            | FILE                   |                  8816 |
+| Log4J2            | FILE_ASYNC             |                  8141 |
+| SLF4J Simple      | FILE                   |                  4735 |
+| Chronicle Logger  | FILE_ASYNC             |                  4226 |
+| Log4J2            | CONSOLE                |                  3656 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3627 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3412 |
+| Java Util Logging | FILE                   |                  2771 |
+| Java Util Logging | CONSOLE                |                  1468 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  1137 |
+
+The benchmark has been executed on 240 threads in parallel:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Log4J2            | FILE                   |                  8583 |
+| Log4J2            | FILE_ASYNC             |                  7481 |
+| SLF4J Simple      | FILE                   |                  4542 |
+| Log4J2            | CONSOLE                |                  3543 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3448 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3401 |
+| Java Util Logging | FILE                   |                  2248 |
+| Java Util Logging | CONSOLE                |                  1496 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  1131 |
+| Chronicle Logger  | FILE_ASYNC             |                   432 |
+
+### CPU usage
+
+The Chronicle Logger consumes 100% CPU (all 40 vCPUs are busy, synchronization is done with CAS) while Log4JLoggerBenchmark only consumes 15% CPU
+
+### Heap allocation
+
+The Chronicle Logger allocates around 0.65 GB of heap when the benchmark is executed. Log4J needs much more memory and allocated over 3 GB in the benchmark.
