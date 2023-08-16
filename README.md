@@ -72,7 +72,20 @@ The benchmark has been executed on 4 threads in parallel:
 | Java Util Logging | CONSOLE                |                  3430 |
 | Java Util Logging | FILE_AND_CONSOLE       |                  2712 |
 
+The benchmark has been executed on 60 threads in parallel:
 
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Chronicle Logger  | FILE_ASYNC             |                 52659 |
+| Log4J2            | FILE_ASYNC             |                 14515 |
+| Log4J2            | FILE                   |                 14290 |
+| Java Util Logging | FILE                   |                  6158 |
+| SLF4J Simple      | FILE                   |                  5357 |
+| Log4J2            | CONSOLE                |                  4044 |
+| Java Util Logging | CONSOLE                |                  3745 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3619 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3323 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  2754 |
 
 ### Execution on Linux box with 40 vCPUs, 250 GB RAM, and local SSD
 
