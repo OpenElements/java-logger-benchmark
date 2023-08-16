@@ -25,6 +25,20 @@ command:
 The JMH benchmark is executed by several parameters that are all defined in the
 `com.openelements.logger.api.BenchmarkConstants` class in the `logger-api` module.
 
+## What is tested
+
+Since not all loggers provide the same set of functionalities the `com.openelements.logger.api.Logger` interface contains all features that should be tested. That feature set reflects the features that a modern logging api should provide:
+
+- log messages
+- add stack trace (by throwable to message)
+- support `{}` placeholders in message
+- support markers
+- support a context (like MDC or thread context)
+- add a timestamp, the current thread and the name of the caller class to the message
+- log to file system and/or console
+
+Since some loggers does not provide some of the features a simple implementation is part of the `com.openelements.logger.api.Logger` implementation for that logger lib.
+
 ## How to add a new logging library?
 
 To add a new logging library, you need to create a new module that contains the implementation of the logging library.
