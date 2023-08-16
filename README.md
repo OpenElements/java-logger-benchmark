@@ -1,21 +1,21 @@
 # Java Logger Benchmark
 
-This project is a benchmark for several Java logging libraries. It is using JMH to measure the performance of the
+This project is a benchmark for several Java logging libraries. It is using [JMH](https://github.com/openjdk/jmh) to measure the performance of the
 different logging libraries.
 
 ## What libraries are tested?
 
 Currently, the following libraries are tested:
 
-- Java Util Logging
-- Log4j 2
-- Log4j 2 with Async Logger
-- SLF4J Simple
-- Chronicle Logger
+- [Java Util Logging](https://www.vogella.com/tutorials/Logging/article.html)
+- [Log4j 2](https://logging.apache.org/log4j/2.x/)
+- [Log4j 2 with Async Logger](https://logging.apache.org/log4j/2.x/manual/async.html)
+- [SLF4J Simple](https://www.slf4j.org/api/org/slf4j/simple/SimpleLogger.html)
+- [Chronicle Logger](https://github.com/OpenHFT/Chronicle-Logger)
 
 ## How to run the benchmark?
 
-The project is based on Maven and the Maven wrapper is included. To run the benchmark, simply execute the following
+The project is based on Maven and the [Maven Wrapper](https://maven.apache.org/wrapper/) is included. To run the benchmark, simply execute the following
 command:
 
 ```
