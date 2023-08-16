@@ -134,6 +134,38 @@ The benchmark has been executed on 240 threads in parallel:
 | Java Util Logging | FILE_AND_CONSOLE       |                  1131 |
 | Chronicle Logger  | FILE_ASYNC             |                   432 |
 
+### Execution on Linux vServer with 2 vCPUs and 4 GB RAM
+
+The benchmark has been executed on 2 threads in parallel:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Chronicle Logger  | FILE_ASYNC             |                  6091 |
+| Log4J2            | FILE                   |                  5937 |
+| SLF4J Simple      | FILE                   |                  2377 |
+| Log4J2            | FILE_ASYNC             |                  2240 |
+| Java Util Logging | FILE                   |                  1124 |
+| Log4J2            | FILE_AND_CONSOLE       |                   869 |
+| Log4J2            | CONSOLE                |                   633 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                   577 |
+| Java Util Logging | CONSOLE                |                   404 |
+| Java Util Logging | FILE_AND_CONSOLE       |                   279 |
+
+The benchmark has been executed on 12 threads in parallel:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Log4J2            | FILE                   |                  5251 |
+| Java Util Logging | FILE                   |                  1188 |
+| Log4J2            | FILE_ASYNC             |                  1142 |
+| Log4J2            | CONSOLE                |                   866 |
+| Chronicle Logger  | FILE_ASYNC             |                   788 |
+| SLF4J Simple      | FILE                   |                   788 |
+| Log4J2            | FILE_AND_CONSOLE       |                   608 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                   518 |
+| Java Util Logging | CONSOLE                |                   514 |
+| Java Util Logging | FILE_AND_CONSOLE       |                   317 |
+
 ### CPU usage
 
 The Chronicle Logger consumes 100% CPU (all 40 vCPUs are busy, synchronization is done with [CAS](https://en.wikipedia.org/wiki/Compare-and-swap)) while Log4JLoggerBenchmark only consumes 15% CPU.
