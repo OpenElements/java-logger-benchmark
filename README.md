@@ -1,7 +1,7 @@
 # Java Logger Benchmark
 
 This project is a benchmark for several Java logging libraries. It is using [JMH](https://github.com/openjdk/jmh) to measure the performance of the
-different logging libraries.
+different logging libraries. The goal of the project is to help people that work on performance critical projects to choose the best logger and setup.
 
 ## What libraries are tested?
 
