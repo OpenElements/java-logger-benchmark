@@ -65,11 +65,14 @@ The benchmark has been executed on 4 threads in parallel:
 | Chronicle Logger  | FILE_ASYNC             |                 23435 |
 | Log4J2            | FILE                   |                 13262 |
 | Java Util Logging | FILE                   |                  5793 |
+| SLF4J Simple      | FILE                   |                  5715 |
 | Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3853 |
 | Log4J2            | FILE_AND_CONSOLE       |                  3686 |
 | Log4J2            | CONSOLE                |                  3720 |
 | Java Util Logging | CONSOLE                |                  3430 |
 | Java Util Logging | FILE_AND_CONSOLE       |                  2712 |
+
+
 
 ### Execution on Linux box with 40 vCPUs, 250 GB RAM, and local SSD
 
