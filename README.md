@@ -32,7 +32,7 @@ Since not all loggers provide the same set of functionalities the `com.openeleme
 - log messages
 - add stack trace (by Throwable)
 - support `{}` placeholders in message
-- support markers
+- support [markers](https://logging.apache.org/log4j/2.x/manual/markers.html)
 - support a context (like [MDC](https://logback.qos.ch/manual/mdc.html) or [thread context](https://logging.apache.org/log4j/2.x/manual/thread-context.html))
 - add a timestamp, the current thread and the name of the caller class to the message
 - log to file system and/or console
