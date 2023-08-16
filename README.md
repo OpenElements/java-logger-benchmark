@@ -107,3 +107,7 @@ The Chronicle Logger consumes 100% CPU (all 40 vCPUs are busy, synchronization i
 ### Heap allocation
 
 The Chronicle Logger allocates around 0.65 GB of heap when the benchmark is executed. Log4J needs much more memory and allocated over 3 GB in the benchmark.
+
+## Kudos
+
+[Oleg Mazurov](https://github.com/OlegMazurov) helped me by executing the tests on a powerfull linux server.
