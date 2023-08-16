@@ -30,7 +30,7 @@ The JMH benchmark is executed by several parameters that are all defined in the
 Since not all loggers provide the same set of functionalities the `com.openelements.logger.api.Logger` interface contains all features that should be tested. That feature set reflects the features that a modern logging api should provide:
 
 - log messages
-- add stack trace (by throwable to message)
+- add stack trace (by Throwable)
 - support `{}` placeholders in message
 - support markers
 - support a context (like [MDC](https://logback.qos.ch/manual/mdc.html) or [thread context](https://logging.apache.org/log4j/2.x/manual/thread-context.html))
