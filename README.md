@@ -15,7 +15,9 @@ Currently, the following libraries are tested:
 
 ## How to run the benchmark?
 
-The project is based on Maven and the [Maven Wrapper](https://maven.apache.org/wrapper/) is included. To run the benchmark, simply execute the following
+The project is based on Maven and the [Maven Wrapper](https://maven.apache.org/wrapper/) is included.
+The benchmark module uses the [jmh-maven-plugin](https://github.com/metlos/jmh-maven-plugin) that automatically execute all benchmarks in the `test` phase of Maven.
+To run the benchmark, simply execute the following
 command:
 
 ```
