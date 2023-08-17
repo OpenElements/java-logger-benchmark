@@ -65,4 +65,9 @@ public class JulLogger implements com.openelements.logger.api.Logger {
         }
         return this;
     }
+
+    @Override
+    public void reset() {
+metadata.clear();
+    }
 }

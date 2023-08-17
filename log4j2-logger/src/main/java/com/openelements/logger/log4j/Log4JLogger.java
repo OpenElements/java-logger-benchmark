@@ -1,64 +1,66 @@
 package com.openelements.logger.log4j;
 
 import com.openelements.logger.api.Logger;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-import org.apache.logging.log4j.ThreadContext;
+import org.apache.logging.log4j.*;
 import org.slf4j.helpers.MessageFormatter;
 
 public class Log4JLogger implements com.openelements.logger.api.Logger {
 
-    private final org.apache.logging.log4j.Logger logger;
+    String loggerName;
 
     private Marker currentMarker;
 
     public Log4JLogger(Class source) {
-        logger = org.apache.logging.log4j.LogManager.getLogger(source.getName());
+        loggerName = source.getName();
     }
 
     @Override
     public void log(String message) {
+        org.apache.logging.log4j.Logger logger = getLogger();
         if (currentMarker != null) {
             logger.log(Level.INFO, currentMarker, message);
             currentMarker = null;
         } else {
             logger.log(Level.INFO, message);
         }
-        ThreadContext.clearAll();
     }
 
     @Override
     public void log(String message, Throwable throwable) {
+        org.apache.logging.log4j.Logger logger = getLogger();
         if (currentMarker != null) {
             logger.log(Level.INFO, currentMarker, message, throwable);
             currentMarker = null;
         } else {
             logger.log(Level.INFO, message, throwable);
         }
-        ThreadContext.clearAll();
     }
 
     @Override
     public void log(String message, Object... args) {
+        org.apache.logging.log4j.Logger logger = getLogger();
         if (currentMarker != null) {
             logger.log(Level.INFO, currentMarker, message, args);
             currentMarker = null;
         } else {
             logger.log(Level.INFO, message, args);
         }
-        ThreadContext.clearAll();
     }
 
     @Override
     public void log(String message, Throwable throwable, Object... args) {
+        org.apache.logging.log4j.Logger logger = getLogger();
         if (currentMarker != null) {
             logger.log(Level.INFO, currentMarker, MessageFormatter.arrayFormat(message, args).getMessage(), throwable);
             currentMarker = null;
         } else {
             logger.log(Level.INFO, MessageFormatter.arrayFormat(message, args).getMessage(), throwable);
         }
-        ThreadContext.clearAll();
+    }
+
+    private org.apache.logging.log4j.Logger getLogger() {
+        // has to be re-aquired or it doesn't do anything.
+        return LogManager.getLogger(loggerName);
     }
 
     @Override
@@ -76,5 +78,10 @@ public class Log4JLogger implements com.openelements.logger.api.Logger {
             currentMarker = MarkerManager.getMarker(marker);
         }
         return this;
+    }
+
+    @Override
+    public void reset() {
+        ThreadContext.clearAll();
     }
 }

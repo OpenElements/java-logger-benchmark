@@ -23,7 +23,6 @@ public class Slf4jLogger implements Logger {
             logger.info(message);
         }
         marker = null;
-        MDC.clear();
     }
 
     @Override
@@ -34,7 +33,6 @@ public class Slf4jLogger implements Logger {
             logger.info(message, throwable);
         }
         marker = null;
-        MDC.clear();
     }
 
     @Override
@@ -45,7 +43,6 @@ public class Slf4jLogger implements Logger {
             logger.info(message, args);
         }
         marker = null;
-        MDC.clear();
     }
 
     @Override
@@ -56,7 +53,6 @@ public class Slf4jLogger implements Logger {
             logger.info(MessageFormatter.arrayFormat(message, args).getMessage(), throwable);
         }
         marker = null;
-        MDC.clear();
     }
 
     @Override
@@ -75,4 +71,8 @@ public class Slf4jLogger implements Logger {
         return this;
     }
 
+    @Override
+    public void reset() {
+        MDC.clear();
+    }
 }
