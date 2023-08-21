@@ -43,6 +43,6 @@ public class Slf4JSimpleBenchmark {
     @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
     public void run() {
         Logger logger = new Slf4jLogger(Slf4JSimpleBenchmark.class);
-        new LogLikeHell(logger).run();
+        new LogLikeHell(logger, true).run();
     }
 }

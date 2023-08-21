@@ -28,7 +28,7 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 
-@State(Scope.Benchmark)
+@State(Scope.Thread)
 public class JulLoggerBenchmark {
 
     @Param({"FILE", "CONSOLE", "FILE_AND_CONSOLE"})
@@ -46,6 +46,9 @@ public class JulLoggerBenchmark {
         }
     }
 
+    Logger logger = new JulLogger(JulLoggerBenchmark.class);
+    LogLikeHell logLikeHell = new LogLikeHell(logger, true);
+
     @Benchmark
     @Fork(1)
     @Threads(PARALLEL_THREAD_COUNT)
@@ -53,8 +56,7 @@ public class JulLoggerBenchmark {
     @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
     @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
     public void run() {
-        Logger logger = new JulLogger(JulLoggerBenchmark.class);
-        new LogLikeHell(logger).run();
+        logLikeHell.run();
     }
 
     private static void updateLoggingConfig(final String configFileName) throws Exception {

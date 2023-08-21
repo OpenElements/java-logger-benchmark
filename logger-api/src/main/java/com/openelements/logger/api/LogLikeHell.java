@@ -4,47 +4,97 @@ import java.util.UUID;
 
 public class LogLikeHell implements Runnable {
 
+    public static final RuntimeException THROWABLE = new RuntimeException("Oh no!");
     private final Logger logger;
+    private final boolean needsId;
+    private int count = 0;
 
-    public LogLikeHell(Logger logger) {
+    public LogLikeHell(Logger logger, boolean needsId) {
         this.logger = logger;
+        this.needsId = needsId;
     }
 
     @Override
     public void run() {
-        String messageWithPlaceholder = "Hello {}!";
-        String messageWith9Placeholder = "Hello {}, {}, {}, {}, {}, {}, {}, {}, {}!";
+        int next = count++ % 14;
+        switch (next) {
+            case 0:
+                logger.log("L0, Hello world!");
+                break;
 
-        logger.log("L1, Hello world!");
-        logger.log("L2, Hello world!", new RuntimeException("Oh no!"));
-        logger.log("L3, Hello {}!", "placeholder");
-        logger.log("L4, Hello {}!", new RuntimeException("Oh no!"), "placeholder");
+            case 1:
+                logger.log("L1, A quick brown fox jumps over the lazy dog.");
+                break;
 
-        logger.withMetadata("key", "value").log("L5, Hello world!");
-        logger.withMarker("marker").log("L6, Hello world!");
+            case 2:
+                logger.log("L2, Hello world!", THROWABLE);
+                break;
 
-        final String id = UUID.randomUUID().toString();
-        logger.withMetadata("id", id).log("L7, Hello world!");
-        logger.withMetadata("id", id).log("L8, Hello {}, {}, {}, {}, {}, {}, {}, {}, {}!", 1, 2, 3, 4, 5, 6, 7, 8, 9);
-        logger.withMetadata("id", id)
-                .log("L9, Hello {}, {}, {}, {}, {}, {}, {}, {}, {}!", new RuntimeException("Oh no!"), 1, 2, 3, 4, 5, 6,
-                        7,
-                        8, 9);
+            case 3:
+                logger.log("L3, Hello {}!", "placeholder");
+                break;
 
-        logger.withMetadata("id", id)
-                .withMetadata("key", "value")
-                .log("L10, Hello world!");
+            case 4:
+                logger.log("L4, Hello {}!", THROWABLE, "placeholder");
+                break;
 
-        logger.withMetadata("id", id)
-                .withMarker("marker")
-                .log("L11, Hello world!");
+            case 5:
+                logger.withMetadata("key", "value").log("L5, Hello world!");
+                break;
 
-        logger.withMarker("marker1")
-                .withMarker("marker2")
-                .log("L12, Hello world!");
+            case 6:
+                logger.withMarker("marker").log("L6, Hello world!");
+                break;
 
-        logger.withMetadata("id", id).withMetadata("key", "value")
-                .withMarker("marker1").withMarker("marker2")
-                .log("L13, " + messageWith9Placeholder, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+            case 7:
+                if (needsId)
+                    logger.withMetadata("id", UUID.randomUUID().toString());
+                logger.log("L7, Hello world!");
+                break;
+
+            case 8:
+                if (needsId)
+                    logger.withMetadata("id", UUID.randomUUID().toString());
+                logger.log("L8, Hello {}, {}, {}, {}, {}, {}, {}, {}, {}!",
+                        1, 2, 3, 4, 5, 6, 7, 8, 9);
+                break;
+
+            case 9:
+                if (needsId)
+                    logger.withMetadata("id", UUID.randomUUID().toString());
+                logger.log("L9, Hello {}, {}, {}, {}, {}, {}, {}, {}, {}!", THROWABLE,
+                        1, 2, 3, 4, 5, 6, 7, 8, 9);
+                break;
+
+            case 10:
+                if (needsId)
+                    logger.withMetadata("id", UUID.randomUUID().toString());
+                logger.withMetadata("key", "value")
+                        .log("L10, Hello world!");
+                break;
+
+            case 11:
+                logger.withMarker("marker")
+                        .log("L11, Hello world!");
+                break;
+
+            case 12:
+                logger.withMarker("marker1")
+                        .withMarker("marker2")
+                        .log("L12, Hello world!");
+                break;
+            case 13:
+                String messageWith9Placeholder = "Hello {}, {}, {}, {}, {}, {}, {}, {}, {}!";
+                logger.withMetadata("key", "value")
+                        .withMarker("marker1").withMarker("marker2")
+                        .log("L13, " + messageWith9Placeholder,
+                                1, 2, 3, 4, 5, 6, 7, 8, 9);
+                break;
+
+            default:
+                throw new AssertionError(next);
+        }
+        logger.reset();
     }
 }
