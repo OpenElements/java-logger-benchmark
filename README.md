@@ -59,6 +59,12 @@ The [benchmark archive](BENCHMARK_HISTORY.MD) contains the results of benchmarks
 Since `v0.2.0` the repo contains benchmarks that check the initialization time of the logger. 
 All loggers are initialized really fast (about 40,000,000 calls per second on my machine) and the performance is independent of the logger configuration.
 
+### Console VS File Logging
+
+The benchmarks prove that independent of the used logging library the performance of logging to the console is always much slower than logging to a file.
+We assume that the behavior is based on the implementation of the `java.io.PrintStream` that is used for `System.out` / `System.err`.
+The class uses synchronized blocks to write to the console.
+
 ## Kudos
 
 The following people helped to improve the benchmark:
