@@ -12,7 +12,7 @@ class ChronicleQueueLoggerTest {
         String pathName = "target/queue";
         ChronicleQueue queue = ChronicleQueue.single(pathName);
         Logger logger = new ChronicleQueueLogger(queue, ChronicleQueueLoggerTest.class);
-        new LogLikeHell(logger, false).run();
+        new LogLikeHell(logger).run();
         IOTools.deleteDirWithFiles(pathName);
     }
 

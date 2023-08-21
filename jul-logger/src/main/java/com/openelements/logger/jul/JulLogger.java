@@ -1,8 +1,7 @@
 package com.openelements.logger.jul;
 
 import com.openelements.logger.api.Logger;
-import java.util.HashMap;
-import java.util.Map;
+import com.openelements.logger.api.ThreadBasedMetadata;
 import java.util.logging.Level;
 import org.slf4j.helpers.MessageFormatter;
 
@@ -10,7 +9,7 @@ public class JulLogger implements com.openelements.logger.api.Logger {
 
     private final java.util.logging.Logger logger;
 
-    private Map<String, String> metadata = new HashMap<>();
+    private final ThreadBasedMetadata metadata = new ThreadBasedMetadata();
 
     public JulLogger(final Class source) {
         this.logger = java.util.logging.Logger.getLogger(source.getName());
@@ -27,26 +26,26 @@ public class JulLogger implements com.openelements.logger.api.Logger {
     @Override
     public void log(String message) {
         logger.log(Level.INFO, addAllAdditionalInfos(message));
-        metadata.clear();
+        reset();
     }
 
     @Override
     public void log(String message, Throwable throwable) {
         logger.log(Level.INFO, addAllAdditionalInfos(message), throwable);
-        metadata.clear();
+        reset();
     }
 
     @Override
     public void log(String message, Object... args) {
         logger.log(Level.INFO, addAllAdditionalInfos(MessageFormatter.arrayFormat(message, args).getMessage()));
-        metadata.clear();
+        reset();
     }
 
     @Override
     public void log(String message, Throwable throwable, Object... args) {
         logger.log(Level.INFO, addAllAdditionalInfos(MessageFormatter.arrayFormat(message, args).getMessage()),
                 throwable);
-        metadata.clear();
+        reset();
     }
 
     @Override
@@ -57,17 +56,17 @@ public class JulLogger implements com.openelements.logger.api.Logger {
 
     @Override
     public Logger withMarker(String marker) {
-        if (metadata.containsKey("marker")) {
-            final String markerValue = metadata.get("marker") + "&" + marker;
-            metadata.put("marker", markerValue);
+        String markerValue = metadata.get("marker");
+        if (markerValue == null) {
+            markerValue = marker;
         } else {
-            metadata.put("marker", marker);
+            markerValue = markerValue + "&" + marker;
         }
+        withMetadata("marker", markerValue);
         return this;
     }
 
-    @Override
     public void reset() {
-metadata.clear();
+        metadata.clear();
     }
 }

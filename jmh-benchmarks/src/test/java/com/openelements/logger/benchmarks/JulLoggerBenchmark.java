@@ -1,5 +1,6 @@
 package com.openelements.logger.benchmarks;
 
+import static com.openelements.logger.api.BenchmarkConstants.FORK_COUNT;
 import static com.openelements.logger.api.BenchmarkConstants.MEASUREMENT_ITERATIONS;
 import static com.openelements.logger.api.BenchmarkConstants.MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION;
 import static com.openelements.logger.api.BenchmarkConstants.PARALLEL_THREAD_COUNT;
@@ -27,12 +28,16 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
 
-@State(Scope.Thread)
+@State(Scope.Benchmark)
 public class JulLoggerBenchmark {
 
     @Param({"FILE", "CONSOLE", "FILE_AND_CONSOLE"})
     public String loggingType;
+
+    Logger logger;
+    LogLikeHell logLikeHell;
 
     @Setup(Level.Iteration)
     public void init() throws Exception {
@@ -44,19 +49,67 @@ public class JulLoggerBenchmark {
         } else if (Objects.equals(loggingType, "FILE_AND_CONSOLE")) {
             updateLoggingConfig("jul-file-and-console-logging.properties");
         }
+        logger = new JulLogger(JulLoggerBenchmark.class);
+        logLikeHell = new LogLikeHell(logger);
     }
 
-    Logger logger = new JulLogger(JulLoggerBenchmark.class);
-    LogLikeHell logLikeHell = new LogLikeHell(logger, true);
 
     @Benchmark
-    @Fork(1)
+    @Fork(FORK_COUNT)
     @Threads(PARALLEL_THREAD_COUNT)
     @BenchmarkMode(Mode.Throughput)
     @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
     @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
-    public void run() {
+    public void runLogLikeHell() {
         logLikeHell.run();
+    }
+
+    @Benchmark
+    @Fork(FORK_COUNT)
+    @Threads(PARALLEL_THREAD_COUNT)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
+    @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
+    public void runSingleSimpleLog() {
+        logger.log("Hello World");
+    }
+
+    @Benchmark
+    @Fork(FORK_COUNT)
+    @Threads(PARALLEL_THREAD_COUNT)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
+    @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
+    public void runSingleComplexLog() {
+        logger.withMarker("MARKER1").
+                withMarker("MARKER2").
+                withMarker("MARKER3").
+                withMetadata("user", "user1").
+                withMetadata("transaction", "t34").
+                withMetadata("session", "session56").
+                log("Hello {}", new RuntimeException("OHOH"), "World");
+    }
+
+    @Benchmark
+    @Fork(FORK_COUNT)
+    @Threads(PARALLEL_THREAD_COUNT)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
+    @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
+    public void runLoggerInstantiation(Blackhole blackhole) {
+        Logger logger1 = new JulLogger(JulLoggerBenchmark.class);
+        blackhole.consume(logger1);
+    }
+
+    @Benchmark
+    @Fork(FORK_COUNT)
+    @Threads(PARALLEL_THREAD_COUNT)
+    @BenchmarkMode(Mode.Throughput)
+    @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_TIME_IN_SECONDS_PER_ITERATION)
+    @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_TIME_IN_SECONDS_PER_ITERATION)
+    public void runLoggerInstantiationAndSingleSimpleLog() {
+        Logger logger1 = new JulLogger(JulLoggerBenchmark.class);
+        logger1.log("Hello World");
     }
 
     private static void updateLoggingConfig(final String configFileName) throws Exception {

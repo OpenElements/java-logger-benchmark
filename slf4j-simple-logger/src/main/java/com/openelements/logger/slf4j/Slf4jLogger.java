@@ -22,7 +22,7 @@ public class Slf4jLogger implements Logger {
         } else {
             logger.info(message);
         }
-        marker = null;
+        reset();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Slf4jLogger implements Logger {
         } else {
             logger.info(message, throwable);
         }
-        marker = null;
+        reset();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Slf4jLogger implements Logger {
         } else {
             logger.info(message, args);
         }
-        marker = null;
+        reset();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Slf4jLogger implements Logger {
         } else {
             logger.info(MessageFormatter.arrayFormat(message, args).getMessage(), throwable);
         }
-        marker = null;
+        reset();
     }
 
     @Override
@@ -71,8 +71,8 @@ public class Slf4jLogger implements Logger {
         return this;
     }
 
-    @Override
     public void reset() {
         MDC.clear();
+        marker = null;
     }
 }

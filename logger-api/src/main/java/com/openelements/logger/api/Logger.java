@@ -14,5 +14,4 @@ public interface Logger {
 
     Logger withMarker(String marker);
 
-    void reset();
 }
