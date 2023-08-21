@@ -53,6 +53,10 @@
             <phase>test</phase>
           </execution>
         </executions>
+        <configuration>
+          <resultFormat>text</resultFormat>
+          <resultsFile>target/jmh.txt</resultsFile>
+        </configuration>
       </plugin>
     </plugins>
   </build>
