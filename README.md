@@ -40,7 +40,7 @@ That feature set reflects the features that a modern logging api should provide:
 - add a timestamp, the current thread and the name of the caller class to the message
 - log to file system and/or console
 
-Since some loggers does not provide some of the features a simple implementation is part of the `com.openelements.logger.api.Logger` implementation for that logger lib.
+Since some loggers do not provide some of the features a simple implementation is part of the `com.openelements.logger.api.Logger` implementation for that logger lib.
 
 ## How to add a new logging library?
 
@@ -54,6 +54,52 @@ All logging libraries execute that code to generate comparable results.
 Since the project evolved over time, the results are not always comparable. 
 The [benchmark archive](BENCHMARK_HISTORY.MD) contains the results of benchmarks of all previous version of the repository.
 
+### Benchmark results for current version
+
+I always try to execute the benchmark on as many setups as possible. If you have a different setup and are willing to contribute performance results please create an issue :)
+
+#### Execution on M1 Max MacBook with 64 GB RAM and local SSD
+
+The benchmark has been executed with the following options:
+
+- Forks: 4
+- Threads: 4
+- Warmup iterations: 4
+- Warmup time: 4 seconds
+- Measurement iterations: 4
+- Measurement time: 4 seconds
+
+The following table contains the results of the benchmark for logging a simple "hello world" message:
+
+| Logger            | Logging Appender       |   Operations per second |
+|-------------------|------------------------|------------------------:|
+| Chronicle Logger  | FILE_ASYNC             |                 2224759 |
+| Log4J2            | FILE_ASYNC             |                  902715 |
+| SLF4J Simple      | FILE                   |                  300924 |
+| Log4J2            | FILE                   |                  163218 |
+| Java Util Logging | FILE                   |                  103076 |
+| Log4J2            | FILE_AND_CONSOLE       |                   89460 |
+| Java Util Logging | CONSOLE                |                   83442 |
+| Log4J2            | CONSOLE                |                   72365 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                   64143 |
+| Java Util Logging | FILE_AND_CONSOLE       |                   49268 |
+
+The following table contains the results of the benchmark for executing the `LogLikeHell` Runnable that contains all possible logging operations:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Chronicle Logger  | FILE_ASYNC             |                 57270 |
+| Log4J2            | FILE_ASYNC             |                 33770 |
+| Log4J2            | FILE                   |                  9880 |
+| Java Util Logging | FILE                   |                  6373 |
+| SLF4J Simple      | FILE                   |                  6091 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  1918 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  1610 |
+| Java Util Logging | CONSOLE                |                  1539 |
+| Log4J2            | FILE_AND_CONSOLE       |                  1436 |
+| Log4J2            | CONSOLE                |                   985 |
+
+
 ### Logger initialization
 
 Since `v0.2.0` the repo contains benchmarks that check the initialization time of the logger. 
@@ -64,6 +110,21 @@ All loggers are initialized really fast (about 40,000,000 calls per second on my
 The benchmarks prove that independent of the used logging library the performance of logging to the console is always much slower than logging to a file.
 We assume that the behavior is based on the implementation of the `java.io.PrintStream` that is used for `System.out` / `System.err`.
 The class uses synchronized blocks to write to the console.
+
+### Performance variance
+
+The setups that use an async file logging have a much higher variance than the setups that use a sync file logging.
+Especially the Chronicle Logger has a high variance. 
+We assume that this behavior is based on the internally used [Chronicle Queue library](https://github.com/OpenHFT/Chronicle-Queue).
+
+The following table contains the results of the benchmark for executing the `LogLikeHell` Runnable:
+
+| Logger            | Logging Appender | Variance in operations per second |
+|-------------------|------------------|----------------------------------:|
+| Chronicle Logger  | FILE_ASYNC       |                            ±15000 |
+| Log4J2            | FILE_ASYNC       |                             ±1500 |
+| All other setups  | ALL              |                              ±300 |
+
 
 ## Kudos
 
