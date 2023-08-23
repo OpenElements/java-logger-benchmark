@@ -103,7 +103,7 @@ The following table contains the results of the benchmark for executing the `Log
 
 The benchmark has been executed with the following options:
 
-- Forks: 2
+- Forks: 1
 - Warmup iterations: 2
 - Warmup time: 2 seconds
 - Measurement iterations: 2
