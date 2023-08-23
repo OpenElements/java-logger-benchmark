@@ -99,6 +99,57 @@ The following table contains the results of the benchmark for executing the `Log
 | Log4J2            | FILE_AND_CONSOLE       |                  1436 |
 | Log4J2            | CONSOLE                |                   985 |
 
+#### Execution on Linux box, 40 vCPUs, 250 GB RAM, and local SSD
+
+The benchmark has been executed with the following options:
+
+- Forks: 2
+- Warmup iterations: 2
+- Warmup time: 2 seconds
+- Measurement iterations: 2
+- Measurement time: 2 seconds
+
+The following results are based on the setup with 4 threads executing the `LogLikeHell` Runnable:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Chronicle Logger  | FILE_ASYNC             |                 33599 |
+| Log4J2            | FILE_ASYNC             |                 25775 |
+| Log4J2            | FILE                   |                 11540 |
+| Log4J2            | CONSOLE                |                  3516 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3451 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3399 |
+| Java Util Logging | FILE                   |                  3031 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  2055 |
+| Java Util Logging | CONSOLE                |                  2189 |
+
+The following results are based on the setup with 40 threads executing the `LogLikeHell` Runnable:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Chronicle Logger  | FILE_ASYNC             |                 11070 |
+| Log4J2            | FILE_ASYNC             |                  8401 |
+| Log4J2            | FILE                   |                  6481 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3516 |
+| Log4J2            | CONSOLE                |                  3302 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3104 |
+| Java Util Logging | FILE                   |                  2124 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  1153 |
+| Java Util Logging | CONSOLE                |                  1928 |
+
+The following results are based on the setup with 240 threads executing the `LogLikeHell` Runnable:
+
+| Logger            | Logging Appender       | Operations per second |
+|-------------------|------------------------|----------------------:|
+| Log4J2            | FILE_ASYNC             |                  7900 |
+| Log4J2            | FILE                   |                  5863 |
+| Log4J2            | CONSOLE                |                  3660 |
+| Log4J2            | FILE_ASYNC_AND_CONSOLE |                  3628 |
+| Log4J2            | FILE_AND_CONSOLE       |                  3502 |
+| Java Util Logging | FILE                   |                  2864 |
+| Chronicle Logger  | FILE_ASYNC             |                  1884 |
+| Java Util Logging | CONSOLE                |                  1155 |
+| Java Util Logging | FILE_AND_CONSOLE       |                  1153 |
 
 ### Logger initialization
 
