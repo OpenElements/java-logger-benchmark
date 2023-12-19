@@ -42,6 +42,14 @@
           </annotationProcessorPaths>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>com.open-elements.benchscape</groupId>
+        <artifactId>jmh-maven-plugin</artifactId>
+        <version>0.4.0-SNAPSHOT</version>
+        <configuration>
+          <url>https://backend.integration.benchscape.cloud</url>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
