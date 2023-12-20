@@ -162,7 +162,7 @@ The benchmarks prove that independent of the used logging library the performanc
 We assume that the behavior is based on the implementation of the `java.io.PrintStream` that is used for `System.out` / `System.err`.
 The class uses synchronized blocks to write to the console.
 
-### Performance variance
+### Performance variance 1234
 
 The setups that use an async file logging have a much higher variance than the setups that use a sync file logging.
 Especially the Chronicle Logger has a high variance. 
