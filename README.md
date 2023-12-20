@@ -179,7 +179,7 @@ The following table contains the results of the benchmark for executing the `Log
 
 ## Kudos
 
-The following people helped to improve the benchmark:
+The following people helped to improve the benchmark 123:
 
 - [Oleg Mazurov](https://github.com/OlegMazurov) helped me by executing the tests on a powerfull linux server.
 - [Peter Lawrey](https://github.com/peter-lawrey) helped me to improve the chronicle benchmarks.
