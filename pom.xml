@@ -24,8 +24,8 @@
     <module>jmh-benchmarks</module>
   </modules>
 
-  <repositories>
-    <repository>
+  <pluginRepositories>
+    <pluginRepository>
       <id>snapshots-repo</id>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
       <releases>
@@ -34,8 +34,8 @@
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
-    </repository>
-  </repositories>
+    </pluginRepository>
+  </pluginRepositories>
 
   <build>
     <plugins>
